@@ -2,6 +2,13 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 // const generateMarkdown = require('./utils/generateMarkdown');
 
+const licenseBadges = {
+    'MIT License': '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)',
+    'Apache License 2.0': '[![License: Apache](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)',
+    'GNU General Public License (GPL) 3.0':'[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)',
+    'BSD 3-Clause "New" or "Revised" License':'[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)',
+}
+
 const questions = [
     {
         type:'input',
@@ -27,7 +34,7 @@ const questions = [
         type:'list',
         name: 'license',
         message: 'Choose a license',
-        choices: ['Mit License',
+        choices: ['MIT License',
         'Apache License 2.0',
         'GNU General Public License (GPL) 3.0',
         'BSD 3-Clause "New" or "Revised" License',
@@ -68,8 +75,9 @@ function writeToFile(fileName, data) {
 
 function init() {
     inquirer.prompt(questions).then((answers) => {
+        const badge = licenseBadges[answers.license] || '';
         let readmeTemplate = 
-        `# ${answers.projectTitle}
+        `# ${answers.projectTitle} ${badge}
     
 ## Description 
     
@@ -102,12 +110,13 @@ ${answers.tests}
     
 ## Questions
     
-GitHub Profile: ${answers.githubUsername}
+GitHub Profile: https://github.com/${answers.githubUsername}
+
 Email: ${answers.email}
     
 ## License
 
- ${answers.license === 'None' ? '' : `This project is licensed under the terms of the ${answers.license}`}
+${answers.license === 'None' ? '' : `This project is licensed under the terms of the ${answers.license}`}
 
 `;
     
