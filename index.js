@@ -23,11 +23,17 @@ const questions = [
         name: 'usage',
         message: 'Enter usage information:',
     },
-    // {
-    //     type:'input',
-    //     name: 'License',
-    //     message: 'Enter your project title:',
-    // },
+    {
+        type:'list',
+        name: 'license',
+        message: 'Choose a license',
+        choices: ['Mit License',
+        'Apache License 2.0',
+        'GNU General Public License (GPL) 3.0',
+        'BSD 3-Clause "New" or "Revised" License',
+        'None',
+        ]
+    },
     {
         type:'input',
         name: 'contributing',
@@ -100,7 +106,9 @@ GitHub Profile: ${answers.githubUsername}
 Email: ${answers.email}
     
 ## License
-        
+
+ ${answers.license === 'None' ? '' : `This project is licensed under the terms of the ${answers.license}`}
+
 `;
     
         writeToFile('README.md',readmeTemplate);
