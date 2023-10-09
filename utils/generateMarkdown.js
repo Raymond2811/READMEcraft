@@ -46,7 +46,7 @@ Best way to reach me is through email, ${answers.email}.
       
 ## License
   
- ${answers.license === 'None' ? '' : `This project is licensed under the terms of the ${answers.license}`} 
+${answers.license === 'None' ? '' : `This project is licensed under the terms of the ${answers.license}`} 
 
 `;
 }
